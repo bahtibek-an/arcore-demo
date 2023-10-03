@@ -21,7 +21,7 @@ async function activateXR() {
         // Add a canvas element and initialize a WebGL context that is compatible with WebXR.
     const canvas = document.createElement("canvas");
     document.body.appendChild(canvas);
-    const gl = canvas.getContext("webgl", {xrCompatible: true});
+    const gl = canvas.getContext("webgl", {xrCompatible: true}) || canvas.getContext("experimental-webgl", {xrCompatible: true});
 
   // To be continued in upcoming steps.
 
@@ -69,9 +69,12 @@ async function activateXR() {
     camera.matrixAutoUpdate = false;
 
 
-    const session = await navigator.xr.requestSession("immersive-ar", {requiredFeatures: ['hit-test']});
-    session.updateRenderState({
-        baseLayer: new XRWebGLLayer(session, gl)
+    const session = await navigator.xr.requestSession("immersive-ar", {requiredFeatures: ['hit-test']}).then(function(supported) {
+        if (supported) {
+            // Show the button that starts the WebXR session
+        } else {
+            alert('Immersive AR not supported');
+        }
     });
 
     // A 'local' reference space has a native origin that is located
