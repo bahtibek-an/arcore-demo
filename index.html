@@ -79,11 +79,11 @@ async function activateXR() {
 
     // A 'local' reference space has a native origin that is located
     // near the viewer's position at the time the session was created.
-    const referenceSpace = await session.requestReferenceSpace('local');
+    // const referenceSpace = await session.requestReferenceSpace('local');
 
 
     // Create another XRReferenceSpace that has the viewer as the origin.
-    const viewerSpace = await session.requestReferenceSpace('viewer');
+    // const viewerSpace = await session.requestReferenceSpace('viewer');
     // Perform hit testing using the viewer as origin.
     const hitTestSource = await session.requestHitTestSource({ space: viewerSpace });
     
